@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <div class="converter">
+            <input type="number" id="inputValue" placeholder="Enter temperature">
+            <select id="inputUnit">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+            </select>
+            <button onclick="convertTemperature()">Convert</button>
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const inputValue = parseFloat(document.getElementById("inputValue").value);
+            const inputUnit = document.getElementById("inputUnit").value;
+
+            if (isNaN(inputValue)) {
+                document.getElementById("result").innerHTML = "Please enter a valid number.";
+                return;
+            }
+
+            let celsius, fahrenheit, kelvin;
+
+            switch (inputUnit) {
+                case "Celsius":
+                    celsius = inputValue;
+                    fahrenheit = (celsius * 9/5) + 32;
+                    kelvin = celsius + 273.15;
+                    break;
+                case "Fahrenheit":
+                    fahrenheit = inputValue;
+                    celsius = (fahrenheit - 32) * 5/9;
+                    kelvin = celsius + 273.15;
+                    break;
+                case "Kelvin":
+                    kelvin = inputValue;
+                    celsius = kelvin - 273.15;
+                    fahrenheit = (celsius * 9/5) + 32;
+                    break;
+            }
+
+            document.getElementById("result").innerHTML = `
+                <p><strong>Celsius:</strong> ${celsius.toFixed(2)} °C</p>
+                <p><strong>Fahrenheit:</strong> ${fahrenheit.toFixed(2)} °F</p>
+                <p><strong>Kelvin:</strong> ${kelvin.toFixed(2)} K</p>
+            `;
+        }
+    </script>
+</body>
+</html>
